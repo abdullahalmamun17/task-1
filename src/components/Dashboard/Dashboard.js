@@ -1,11 +1,61 @@
 import React, { useState } from 'react';
 import { Table } from 'react-bootstrap';
 import data from '../../data/data';
+import ManageDashboard from '../ManageDashboard/ManageDashboard';
 
 const Dashboard = () => {
     const [allData, setData] = useState(data)
 
     console.log(allData)
+    const handleCheckbox = (e, id, actionName) => {
+        const checkedStatus = e.target.checked;
+
+        if (actionName === 'isCreate') {
+            const newData = allData.map(data => {
+                if (data.id === id) {
+                    data.isCreate = checkedStatus;
+                }
+                return data;
+            })
+            setData(newData)
+        }
+        else if (actionName === 'isView') {
+            const newData = allData.map(data => {
+                if (data.id === id) {
+                    data.isView = checkedStatus;
+                }
+                return data;
+            })
+            setData(newData)
+        }
+        else if (actionName === 'isEdit') {
+            const newData = allData.map(data => {
+                if (data.id === id) {
+                    data.isEdit = checkedStatus;
+                }
+                return data;
+            })
+            setData(newData)
+        }
+        else if (actionName === 'isDelete') {
+            const newData = allData.map(data => {
+                if (data.id === id) {
+                    data.isDelete = checkedStatus;
+                }
+                return data;
+            })
+            setData(newData)
+        }
+        else if (actionName === 'isApprove') {
+            const newData = allData.map(data => {
+                if (data.id === id) {
+                    data.isApprove = checkedStatus;
+                }
+                return data;
+            })
+            setData(newData)
+        }
+    }
 
     return (
         <div className="container mt-5">
@@ -24,95 +74,7 @@ const Dashboard = () => {
                 </thead>
                 <tbody>
                     {
-                        allData.map(item => <tr key={item.id}>
-                            <td>{item.moduleName}</td>
-                            <td>{item.activityName}</td>
-                            <td>
-                                <input
-                                    onChange={event => {
-                                        let checkedStatus = event.target.checked;
-                                        setData(
-                                            allData.map(data => {
-                                                if (item.id === data.id) {
-                                                    data.isCreate = checkedStatus;
-                                                }
-                                                return data;
-                                            })
-                                        );
-                                    }}
-                                    type="checkbox"
-                                    checked={item.isCreate}
-                                />
-                            </td>
-                            <td>
-                                <input
-                                    onChange={event => {
-                                        let checkedStatus = event.target.checked;
-                                        setData(
-                                            allData.map(data => {
-                                                if (item.id === data.id) {
-                                                    data.isView = checkedStatus;
-                                                }
-                                                return data;
-                                            })
-                                        );
-                                    }}
-                                    type="checkbox"
-                                    checked={item.isView}
-                                />
-                            </td>
-                            <td>
-                                <input
-                                    onChange={event => {
-                                        let checkedStatus = event.target.checked;
-                                        setData(
-                                            allData.map(data => {
-                                                if (item.id === data.id) {
-                                                    data.isEdit = checkedStatus;
-                                                }
-                                                return data;
-                                            })
-                                        );
-                                    }}
-                                    type="checkbox"
-                                    checked={item.isEdit}
-                                />
-                            </td>
-                            <td>
-                                <input
-                                    onChange={event => {
-                                        let checkedStatus = event.target.checked;
-                                        setData(
-                                            allData.map(data => {
-                                                if (item.id === data.id) {
-                                                    data.isDelete = checkedStatus;
-                                                }
-                                                return data;
-                                            })
-                                        );
-                                    }}
-                                    type="checkbox"
-                                    checked={item.isDelete}
-                                />
-                            </td>
-                            <td>
-                                <input
-                                    onChange={event => {
-                                        let checkedStatus = event.target.checked;
-                                        setData(
-                                            allData.map(data => {
-                                                if (item.id === data.id) {
-                                                    data.isApprove = checkedStatus;
-                                                }
-                                                return data;
-                                            })
-                                        );
-                                    }}
-                                    type="checkbox"
-                                    checked={item.isApprove}
-                                />
-                            </td>
-                        </tr>)
+                        allData.map(item => <ManageDashboard key={item.id} data={item} handleCheckbox={handleCheckbox}></ManageDashboard>)
                     }
                 </tbody>
             </Table>
